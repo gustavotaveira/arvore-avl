@@ -9,9 +9,9 @@ void limparTela(){
 int main(){
 
     int controle;
-    Arv* arv = NULL;
+    No* arv = NULL;
 
-    printf("Árvore AVL\n\n");
+    printf("ï¿½rvore AVL\n\n");
     printf("1 - inserir\n");
     printf("2 - remover\n");
     printf("3- buscar\n");
