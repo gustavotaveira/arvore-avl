@@ -43,7 +43,7 @@ int remover(Arv** arv, int x){
             struct Arv* temp = procuraMenor((*arv)->dir);
             (*arv)->valor = temp->valor;
             remover(&(*arv)->dir, (*arv)->valor);
-            if((*arv)->esq->h - (*arv)->dir->h == 2){
+            if((*arv)->dir->h - (*arv)->esq->h == 2){
                 if(altura((*arv)->esq->dir) <= altura((*arv)->esq->esq))
                     rotacaoSimplesDireita(arv);
                 else
@@ -79,8 +79,8 @@ Arv* rotacaoSimplesDireita(Arv* r){
 Arv* rotacaoSimplesEsquerda(Arv* r){
     Arv* aux;
     aux=r->dir;
-    r->dir=r->esq;
-    r->esq = r;
+    r->dir=aux->esq;
+    aux->esq = r;
     r->h = max(altura(r->dir),  altura(r->esq))+1;
     aux->h = max(altura(aux->dir), r->h) + 1;
     return aux;
