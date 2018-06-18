@@ -33,7 +33,7 @@ int main(){
             case 1:
                 printf("Insira o valor: ");
                 scanf("%d", &valor);
-                inserir(arv, valor);
+                arv = inserir(arv, valor);
             break;
             case 2:
                 printf("Insira o valor: ");
@@ -67,7 +67,9 @@ int main(){
                 grauArv(arv);
             break;
              case 7:
-
+                 printf("Insira o valor: ");
+                scanf("%d", &valor);
+                filho(arv, valor);
             break;
             case 8:
                 printf("A altura da árvore é %d.\n", calcula_altura(arv));

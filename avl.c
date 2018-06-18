@@ -64,12 +64,12 @@ No *inserir(No *arv,  int x)
 
 
 int remover(No** arv, int x){
-    if(*arv == NULL) return 0;
+    if((*arv) == NULL) return 0;
     int res;
     if(x < (*arv)->valor){
         if((res=remover(&(*arv)->esq, x))==1){
             if((*arv)->esq->h - (*arv)->dir->h == -2){
-                if(altura((*arv)->dir->esq) <= altura((*arv)->dir->dir))
+                if(calcula_altura((*arv)->dir->esq) <= calcula_altura((*arv)->dir->dir))
                     rotacaoSimplesEsquerda(arv);
                 else
                     direitaEsquerda(arv);
@@ -79,7 +79,7 @@ int remover(No** arv, int x){
     if((*arv)->valor < x){
         if((res=remover(&(*arv)->dir, x))==1){
             if((*arv)->esq->h - (*arv)->dir->h == 2){
-                if(altura((*arv)->esq->dir) <= altura((*arv)->esq->esq))
+                if(calcula_altura((*arv)->esq->dir) <= calcula_altura((*arv)->esq->esq))
                     rotacaoSimplesDireita(arv);
                 else
                     esquerdaDireita(arv);
@@ -95,11 +95,11 @@ int remover(No** arv, int x){
                 *arv = (*arv)->dir;
             free(oldNode);
         }else{
-            No* temp = procuraMenor((*arv)->dir);
+            No* temp = procuraMenor(&(*arv)->dir);
             (*arv)->valor = temp->valor;
             remover(&(*arv)->dir, (*arv)->valor);
-            if((*arv)->dir->h - (*arv)->esq->h == 2){
-                if(altura((*arv)->esq->dir) <= altura((*arv)->esq->esq))
+            if(calcula_altura((*arv)->dir) - calcula_altura((*arv)->esq) == 2){
+                if(calcula_altura((*arv)->esq->dir) <= calcula_altura((*arv)->esq->esq))
                     rotacaoSimplesDireita(arv);
                 else
                     esquerdaDireita(arv);
@@ -270,4 +270,36 @@ void resetar(No* arv){
            }
         }
         printf("Árvore excluída\n");
+}
+
+void filho(No *arv, int valor)
+{
+  if(arv == NULL)
+    return;
+  if(arv->valor == valor)
+  {
+
+    if(arv->esq == NULL && arv->dir == NULL)
+    {
+      printf("No não tem filhos\n");
+      return;
+    }
+    if(arv->esq == NULL && arv->dir != NULL)
+    {
+      printf("filho direito: [%d]\n", arv->dir->valor);
+      return;
+    }
+    if(arv->esq != NULL && arv->dir == NULL)
+    {
+      printf("filho esquerdo: [%d]\n", arv->esq->valor);
+      return;
+    }
+    else
+    {
+    printf("filho esquerdo: [%d] filho direito: [%d]\n", arv->esq->valor, arv->dir->valor);
+    return;
+    }
+  }
+  filho(arv->esq, valor);
+  filho(arv->dir, valor);
 }

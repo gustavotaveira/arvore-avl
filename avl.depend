@@ -1,8 +1,21 @@
 # depslib dependency file v1.0
-1529280876 source:c:\users\gustavo vinicius\desktop\ufg\projeto\avl\avl.c
+1529286407 source:c:\users\gustavo vinicius\desktop\ufg\projeto\avl\avl.c
 	"avl.h"
 
 1529280798 c:\users\gustavo vinicius\desktop\ufg\projeto\avl\avl.h
 	<stdio.h>
 	<stdlib.h>
+
+1529286421 source:c:\users\gustavo vinicius\desktop\ufg\projeto\avl\principal.c
+	<stdio.h>
+	"avl.h"
+	<stdlib.h>
+	<locale.h>
+	"imprimeArvore.c"
+
+1529281616 c:\users\gustavo vinicius\desktop\ufg\projeto\avl\imprimearvore.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"avl.h"
 
