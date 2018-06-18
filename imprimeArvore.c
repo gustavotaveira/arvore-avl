@@ -73,7 +73,7 @@ asciinode * build_ascii_tree_recursive(No * t)
     node->right->parent_dir = 1;
   }
 
-  sprintf(node->label, "%d", t->data);
+  sprintf(node->label, "%d", t->valor);
   node->lablen = strlen(node->label);
 
   return node;

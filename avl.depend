@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1529280876 source:c:\users\gustavo vinicius\desktop\ufg\projeto\avl\avl.c
+	"avl.h"
+
+1529280798 c:\users\gustavo vinicius\desktop\ufg\projeto\avl\avl.h
+	<stdio.h>
+	<stdlib.h>
+

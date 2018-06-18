@@ -10,9 +10,6 @@ No *inserir(No *arv,  int x);
 //-----------------------------------------
 
 
-int buscar(No* arv,  int x){
-
-}
 
 No *inserir(No *arv,  int x)
 {
@@ -81,15 +78,15 @@ int remover(No** arv, int x){
     }
     if((*arv)->valor < x){
         if((res=remover(&(*arv)->dir, x))==1){
-            if(*arv->esq->h - *arv->dir->h == 2){
+            if((*arv)->esq->h - (*arv)->dir->h == 2){
                 if(altura((*arv)->esq->dir) <= altura((*arv)->esq->esq))
                     rotacaoSimplesDireita(arv);
                 else
-                    esquerdaDireita(arv)
+                    esquerdaDireita(arv);
             }
         }
     }
-    if((*arv)->valor == valor){
+    if((*arv)->valor == x){
         if((*arv)->esq == NULL || (*arv)->dir==NULL){
             No* oldNode = (*arv);
             if((*arv)->esq != NULL)
@@ -98,7 +95,7 @@ int remover(No** arv, int x){
                 *arv = (*arv)->dir;
             free(oldNode);
         }else{
-            struct No* temp = procuraMenor((*arv)->dir);
+            No* temp = procuraMenor((*arv)->dir);
             (*arv)->valor = temp->valor;
             remover(&(*arv)->dir, (*arv)->valor);
             if((*arv)->dir->h - (*arv)->esq->h == 2){
@@ -114,9 +111,9 @@ int remover(No** arv, int x){
     return res;
 }
 
-No* procuraMenor(No* atual){
-    No* arv1 = atual;
-    No* arv2 = atual->esq;
+No* procuraMenor(No** atual){
+    No* arv1 = (*atual);
+    No* arv2 = (*atual)->esq;
     while(arv2 != NULL){
         arv1 = arv2;
         arv2 = arv2->esq;
@@ -154,30 +151,38 @@ No* direitaEsquerda(No* r){
     return rotacaoSimplesEsquerda(r);
 }
 
-int max (int a, int b){
+int maxi (int a, int b){
     return a > b? a : b;
 }
 
 int calcula_altura(No* arv){
  if(arv == NULL) return 0;
- return 1 + max(calcula_altura(arv->esq), calcula_altura(arv->dir));
+ return 1 + maxi(calcula_altura(arv->esq), calcula_altura(arv->dir));
 }
 
-int altura(No** arv){
-    if(*arv == NULL) return 0;
-    return *arv->h;
+int alturah(No** arv){
+    if((*arv) == NULL) return 0;
+    return (*arv)->h;
 }
-int grauSub(No** arv){
-    if(arv->esq == NULL || arv->dir == NULL){
-        if(arv->esq != NULL){
+int grauSub(No** arv, int valor){
+   if((*arv) == NULL){
+    return -1;
+   }
+   if((*arv)->valor == valor){
+    if((*arv)->esq == NULL || (*arv)->dir == NULL){
+        if((*arv)->esq != NULL)
             return 1;
-        }
-        if(arv->dir != NULL){
-            return 1
-        }
+        if((*arv)->dir != NULL)
+            return 1;
         return 0;
+    }else{
+        return 2;
     }
-    return 2;
+   }
+   if(valor < (*arv)->valor)
+    return grauSub((*arv)->esq, valor);
+   if(valor > (*arv)->valor)
+    return grauSub((*arv)->dir, valor);
 }
 
 
@@ -224,4 +229,45 @@ int altura(No *no)
   if(no == NULL)
     return 0;
   return no->h;
+}
+
+void buscar(No* arv, int x){
+   if (arv == NULL){
+        printf("Elemento não existe na árvore\n");
+         return;
+    }
+
+    if (x == arv->valor) {
+       printf("O valor %d está na árvore\n", x);
+         return;
+   }
+
+    if (x < arv->valor){
+        buscar(arv->esq, x);
+   }else{
+       if(x > arv->valor) {
+            buscar(arv->dir, x);
+        }
+    }
+}
+
+void grauArv(No* arv){
+   if (arv == NULL)
+        printf("\nÁrvore não existe\n");
+   else if(arv->esq==NULL && arv->dir!=NULL || arv->esq!=NULL && arv->dir==NULL)
+               printf("\nÁrvore tem grau 1\n");
+        else if(arv->esq!= NULL && arv->dir!=NULL)
+                    printf("\nÁrvore tem grau 2\n");
+}
+
+void resetar(No* arv){
+        if(arv != NULL){
+            resetar(arv->esq);
+            resetar(arv->dir);
+            if(arv->esq==NULL && arv->dir==NULL){
+               free(arv);
+               arv = NULL;
+           }
+        }
+        printf("Árvore excluída\n");
 }
